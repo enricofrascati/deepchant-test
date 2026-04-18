@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0A0A0F">
+<title>Test delle emozioni</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #0A0A0F;
+    --surface: #14141A;
+    --surface-elevated: #1E1E26;
+    --text-primary: #E8E6E1;
+    --text-secondary: #A8A6A0;
+    --text-muted: #6B6968;
+    --gold: #C9A87C;
+    --gold-dim: rgba(201, 168, 124, 0.15);
+    --border: rgba(232, 230, 225, 0.12);
+    --green: #7FB481;
+    --gray: #6B6968;
+    --red: #C75050;
+  }
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+  }
+  .brand {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  .meta {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 18px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 16px;
+    font-family: inherit;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gold);
+    padding: 12px;
+    font-size: 14px;
+    margin: 0;
+  }
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+  .progress-dot {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .progress-dot.done { background: var(--gold); }
+  .progress-dot.active { background: var(--gold); }
+  .option {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.2s;
+  }
+  .option:active { transform: scale(0.98); }
+  .option.selected {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+  }
+  .option-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .option-label {
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .option.selected .option-label { color: var(--gold); }
+  .cluster-card {
+    background: var(--surface);
+    border: 1px solid var(--gold-dim);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cluster-emoji { font-size: 32px; line-height: 1; flex-shrink: 0; }
+  .cluster-info { flex: 1; }
+  .cluster-name { font-size: 17px; font-weight: 600; color: var(--gold); margin-bottom: 4px; }
+  .cluster-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+  .cluster-rank {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .anchor-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .anchor-label {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text-primary);
+  }
+  .rating-row { display: flex; gap: 8px; }
+  .rating-btn {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .rating-btn.active.risuona {
+    background: rgba(127, 180, 129, 0.2);
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .rating-btn.active.indifferente {
+    background: rgba(107, 105, 104, 0.25);
+    border-color: var(--gray);
+    color: var(--text-primary);
+  }
+  .rating-btn.active.non_mia {
+    background: rgba(199, 80, 80, 0.18);
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .rating-legend {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .rating-legend span { margin-right: 12px; display: inline-block; margin-bottom: 4px; }
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  .form-textarea { min-height: 90px; }
+  .form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .choice-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .choice-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    flex: 1;
+    min-width: 80px;
+  }
+  .choice-btn.active {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .success-icon {
+    font-size: 56px;
+    text-align: center;
+    margin: 32px 0 16px;
+  }
+  .code-block {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+  }
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .counter-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ============================================ -->
+<!-- SCHERMATA 0: WELCOME -->
+<!-- ============================================ -->
+<div class="screen active" id="screen-welcome">
+  <div class="brand">SPERIMENTALE</div>
+  <h1>Test delle emozioni</h1>
+  <p>Quello che segue è un test psicologico di mia invenzione. Rispondi a sei domande (3 minuti di tempo) e, al termine, ti mostrerò una lista di 15-20 immagini evocative.</p>
+  <div class="divider"></div>
+  <p class="meta">Le tue risposte restano anonime. Alla fine ti chiederò di copiare il risultato numerico del test e inviarmelo via WhatsApp o email.</p>
+  <button class="btn" onclick="startQuiz()">Iniziamo</button>
+</div>
+
+<!-- ============================================ -->
+<!-- SCHERMATA QUIZ (dinamica) -->
+<!-- ============================================ -->
+<div class="screen" id="screen-quiz">
+  <div class="progress" id="progress-bar"></div>
+  <h2 id="question-text"></h2>
+  <div id="options-container"></div>
+  <button class="btn" id="quiz-next-btn" onclick="nextQuestion()" disabled>Continua</button>
+</div>
+
+<!-- ============================================ -->
+<!-- SCHERMATA RISULTATO -->
+<!-- ============================================ -->
+<div class="screen" id="screen-result">
+  <div class="brand">IL TUO PROFILO</div>
+  <h2>Le aree emotive principali</h2>
+  <p style="font-size: 14px;">Basandomi sulle tue risposte, le aree emotive che ti rappresentano di più sono:</p>
+  <div id="clusters-container"></div>
+  <div class="divider"></div>
+  <p style="font-size: 14px;">Sulla prossima pagina trovi gli spunti scelti per te. Indica per ognuno se richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Mi serve per capire se il test è efficace o se va migliorato.</p>
+  <button class="btn" onclick="showAnchors()">Procedi</button>
+</div>
+
+<!-- ============================================ -->
+<!-- SCHERMATA RATING ANCORE -->
+<!-- ============================================ -->
+<div class="screen" id="screen-anchors">
+  <div class="brand">VALUTA GLI SPUNTI</div>
+  <h2>Quali di questi spunti ti parlano?</h2>
+  <div class="rating-legend">
+    <span><strong style="color: var(--green)">💚</strong> mi risuona</span>
+    <span><strong style="color: var(--text-primary)">😐</strong> indifferente</span>
+    <span><strong style="color: var(--red)">❌</strong> non è mio</span>
+  </div>
+  <div id="anchors-container"></div>
+  <button class="btn" id="anchors-next-btn" onclick="showFeedback()">Continua</button>
+  <p class="counter-info" id="anchors-counter"></p>
+</div>
+
+<!-- ============================================ -->
+<!-- SCHERMATA FEEDBACK FINALE -->
+<!-- ============================================ -->
+<div class="screen" id="screen-feedback">
+  <div class="brand">ULTIMO PASSO</div>
+  <h2>Due domande finali</h2>
+
+  <div class="form-group">
+    <label class="form-label">Generalmente parlando, ti sembra che gli spunti che ti abbiamo proposto ti rappresentino?</label>
+    <div class="choice-row" id="recognition-row">
+      <button class="choice-btn" data-value="si">Sì, molto</button>
+      <button class="choice-btn" data-value="parziale">In parte</button>
+      <button class="choice-btn" data-value="no">No, non mi riconosco</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">C'è uno spunto che ti provoca emozioni che non hai visto nella lista?</label>
+    <textarea class="form-textarea" id="missing-input" placeholder="Es. Il profumo di pino quando cammino in montagna..."></textarea>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="form-group">
+    <label class="form-label">Età (opzionale)</label>
+    <div class="choice-row" id="age-row">
+      <button class="choice-btn" data-value="18-30">18–30</button>
+      <button class="choice-btn" data-value="30-45">30–45</button>
+      <button class="choice-btn" data-value="45-60">45–60</button>
+      <button class="choice-btn" data-value="60+">60+</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Genere (opzionale)</label>
+    <div class="choice-row" id="gender-row">
+      <button class="choice-btn" data-value="f">F</button>
+      <button class="choice-btn" data-value="m">M</button>
+      <button class="choice-btn" data-value="altro">Altro</button>
+      <button class="choice-btn" data-value="na">Preferisco non dire</button>
+    </div>
+  </div>
+
+  <button class="btn" onclick="finalizeResults()">Genera risultati</button>
+</div>
+
+<!-- ============================================ -->
+<!-- SCHERMATA FINE -->
+<!-- ============================================ -->
+<div class="screen" id="screen-done">
+  <div class="success-icon">🙏</div>
+  <h1 style="text-align: center;">Grazie!</h1>
+  <p style="text-align: center;">I tuoi risultati sono pronti. Scegli come inviarli:</p>
+
+  <button class="btn" onclick="copyResults()">📋 Copia e incolla su WhatsApp</button>
+  <button class="btn btn-secondary" onclick="emailResults()">📧 Invia via email</button>
+
+  <div class="divider"></div>
+
+  <details style="margin-top: 16px;">
+    <summary style="color: var(--text-muted); font-size: 13px; cursor: pointer;">Anteprima del messaggio</summary>
+    <div class="code-block" id="results-json" style="margin-top: 12px; font-family: inherit; white-space: pre-wrap;"></div>
+  </details>
+
+  <p class="meta" style="text-align: center; margin-top: 32px;">Puoi chiudere questa pagina.</p>
+</div>
+
+</div>
+
+<script>
+// ========================================================
+// DATASET
+// ========================================================
+
+const CLUSTERS = {
+  selvatica:      { emoji: '🏔', name: 'Anima selvatica', description: 'Natura grezza, movimento, solitudine, sfida, avventura.' },
+  contemplativa:  { emoji: '🎭', name: 'Estetica contemplativa', description: 'Sensibilità estetica, osservazione silenziosa, raffinatezza.' },
+  sociale:        { emoji: '🔥', name: 'Fuoco sociale', description: 'Connessione, calore, convivialità, movimento con altri.' },
+  acquatica:      { emoji: '🌊', name: 'Acquatico profondo', description: 'Acqua in tutte le forme, immersione, quiete fluida.' },
+  spirituale:     { emoji: '🕯', name: 'Spiritualità calma', description: 'Silenzio, quiete estrema, interiorità, sacralità.' },
+  radicante:      { emoji: '🌿', name: 'Terra radicante', description: 'Natura solida, radicamento, olfatto, tatto, tranquillità.' },
+  corpo:          { emoji: '💃', name: 'Corpo vivo', description: 'Movimento, tatto, pelle, erotismo, fisicità.' },
+  domestica:      { emoji: '🏠', name: 'Memoria domestica', description: 'Casa, famiglia, infanzia, sicurezza affettiva.' },
+  stupore:        { emoji: '✨', name: 'Stupore', description: 'Dalla sorpresa giocosa all\'immensità sublime.' },
+  creazione:      { emoji: '🎨', name: 'Creazione viva', description: 'Espressione, scoperta, creatività, gioco mentale.' }
+};
+
+const ANCHORS = [
+  { label: 'Mare aperto', clusters: ['selvatica', 'acquatica'] },
+  { label: 'Lago silenzioso', clusters: ['acquatica', 'spirituale'] },
+  { label: 'Fiume che scorre', clusters: ['acquatica', 'selvatica'] },
+  { label: 'Torrente di montagna', clusters: ['selvatica', 'acquatica'] },
+  { label: 'Pioggia', clusters: ['contemplativa', 'acquatica'] },
+  { label: 'Cascata', clusters: ['selvatica', 'acquatica'] },
+  { label: 'Immersione subacquea', clusters: ['selvatica', 'acquatica'] },
+  { label: 'Nuoto', clusters: ['corpo', 'acquatica'] },
+  { label: 'Kayak in rapida', clusters: ['selvatica', 'acquatica'] },
+  { label: 'Vasca o sauna', clusters: ['acquatica', 'corpo'] },
+  { label: 'Nebbia', clusters: ['contemplativa', 'acquatica'] },
+  { label: 'Vento forte', clusters: ['selvatica'] },
+  { label: 'Brezza leggera', clusters: ['contemplativa', 'radicante'] },
+  { label: 'Volare in parapendio', clusters: ['selvatica', 'stupore'] },
+  { label: 'Aria rarefatta d\'alta quota', clusters: ['selvatica', 'spirituale', 'stupore'] },
+  { label: 'Aria pulita', clusters: ['radicante'] },
+  { label: 'Tempesta in arrivo', clusters: ['selvatica', 'stupore'] },
+  { label: 'Odore della pioggia', clusters: ['acquatica', 'radicante', 'domestica'] },
+  { label: 'Fiamma di candela', clusters: ['contemplativa', 'spirituale'] },
+  { label: 'Falò', clusters: ['sociale', 'radicante'] },
+  { label: 'Camino acceso', clusters: ['contemplativa', 'domestica'] },
+  { label: 'Sole cocente', clusters: ['sociale', 'corpo'] },
+  { label: 'Vulcano', clusters: ['selvatica', 'stupore'] },
+  { label: 'Montagna', clusters: ['selvatica'] },
+  { label: 'Roccia e scogliera', clusters: ['selvatica'] },
+  { label: 'Deserto', clusters: ['selvatica', 'stupore'] },
+  { label: 'Caverna', clusters: ['selvatica', 'stupore'] },
+  { label: 'Camminare scalzi sull\'erba', clusters: ['radicante', 'corpo'] },
+  { label: 'Radici e suolo', clusters: ['radicante'] },
+  { label: 'Bosco di conifere', clusters: ['radicante', 'selvatica'] },
+  { label: 'Foresta tropicale', clusters: ['radicante', 'selvatica'] },
+  { label: 'Sottobosco umido', clusters: ['radicante'] },
+  { label: 'Albero antico', clusters: ['radicante', 'contemplativa'] },
+  { label: 'Foglie in autunno', clusters: ['contemplativa'] },
+  { label: 'Fiori di campo', clusters: ['radicante'] },
+  { label: 'Giardino in fiore', clusters: ['radicante', 'domestica'] },
+  { label: 'Profumo di terra bagnata', clusters: ['radicante', 'domestica'] },
+  { label: 'Semina e germoglio', clusters: ['radicante', 'creazione'] },
+  { label: 'Aquila in volo', clusters: ['selvatica', 'stupore'] },
+  { label: 'Lupo', clusters: ['selvatica', 'radicante'] },
+  { label: 'Cavallo al galoppo', clusters: ['selvatica', 'corpo'] },
+  { label: 'Delfino', clusters: ['acquatica'] },
+  { label: 'Farfalla', clusters: ['contemplativa', 'stupore'] },
+  { label: 'Gatto', clusters: ['domestica', 'radicante'] },
+  { label: 'Tramonto', clusters: ['contemplativa'] },
+  { label: 'Alba', clusters: ['contemplativa', 'spirituale', 'radicante'] },
+  { label: 'Cielo stellato', clusters: ['stupore', 'spirituale'] },
+  { label: 'Luna piena', clusters: ['stupore', 'spirituale', 'contemplativa'] },
+  { label: 'Temporale', clusters: ['stupore', 'selvatica'] },
+  { label: 'Neve che cade', clusters: ['contemplativa', 'stupore', 'radicante'] },
+  { label: 'Arcobaleno', clusters: ['stupore', 'contemplativa'] },
+  { label: 'Eclissi', clusters: ['stupore'] },
+  { label: 'Via Lattea', clusters: ['stupore', 'spirituale'] },
+  { label: 'Stella cadente', clusters: ['stupore'] },
+  { label: 'Jazz', clusters: ['contemplativa', 'sociale'] },
+  { label: 'Musica classica', clusters: ['contemplativa'] },
+  { label: 'Ritmo tribale', clusters: ['sociale', 'corpo'] },
+  { label: 'Canzone dell\'infanzia', clusters: ['domestica', 'contemplativa'] },
+  { label: 'Concerto dal vivo', clusters: ['sociale'] },
+  { label: 'Voce umana che canta', clusters: ['contemplativa', 'sociale'] },
+  { label: 'Silenzio assoluto', clusters: ['spirituale', 'stupore'] },
+  { label: 'Silenzio della neve', clusters: ['spirituale', 'contemplativa'] },
+  { label: 'Silenzio dopo la pioggia', clusters: ['spirituale', 'acquatica'] },
+  { label: 'Onde del mare', clusters: ['acquatica', 'contemplativa'] },
+  { label: 'Pioggia sul tetto', clusters: ['acquatica', 'domestica'] },
+  { label: 'Vento tra gli alberi', clusters: ['radicante', 'contemplativa'] },
+  { label: 'Fuoco che crepita', clusters: ['sociale', 'domestica'] },
+  { label: 'Canto degli uccelli', clusters: ['radicante', 'spirituale', 'domestica'] },
+  { label: 'Il proprio battito (al polso o al collo)', clusters: ['corpo', 'spirituale'] },
+  { label: 'Ascoltare il battito di chi ami (orecchio sul petto)', clusters: ['corpo', 'domestica'] },
+  { label: 'Respiro profondo', clusters: ['corpo', 'spirituale'] },
+  { label: 'Camminata sui ciottoli', clusters: ['radicante', 'corpo'] },
+  { label: 'Tango', clusters: ['corpo', 'sociale'] },
+  { label: 'Danza libera', clusters: ['corpo', 'creazione'] },
+  { label: 'Danza di gruppo', clusters: ['sociale', 'corpo'] },
+  { label: 'Movimento fluido nell\'acqua', clusters: ['acquatica', 'corpo'] },
+  { label: 'Corsa', clusters: ['corpo', 'selvatica'] },
+  { label: 'Scalata', clusters: ['selvatica', 'corpo'] },
+  { label: 'Yoga', clusters: ['spirituale', 'corpo'] },
+  { label: 'Arti marziali', clusters: ['corpo', 'selvatica'] },
+  { label: 'Ciclismo', clusters: ['corpo', 'selvatica'] },
+  { label: 'Trekking', clusters: ['radicante', 'selvatica'] },
+  { label: 'Pittura', clusters: ['creazione', 'contemplativa'] },
+  { label: 'Fotografia', clusters: ['creazione', 'contemplativa'] },
+  { label: 'Scultura', clusters: ['creazione'] },
+  { label: 'Disegno', clusters: ['creazione', 'contemplativa'] },
+  { label: 'Teatro', clusters: ['contemplativa', 'creazione'] },
+  { label: 'Improvvisazione', clusters: ['creazione', 'sociale', 'stupore'] },
+  { label: 'Scrittura creativa', clusters: ['creazione', 'contemplativa'] },
+  { label: 'Poesia', clusters: ['contemplativa', 'creazione'] },
+  { label: 'Dialogo profondo', clusters: ['contemplativa', 'domestica'] },
+  { label: 'Abbraccio profondo', clusters: ['corpo', 'domestica'] },
+  { label: 'Fusione con l\'altro', clusters: ['corpo'] },
+  { label: 'Sguardo che capisce senza parole', clusters: ['domestica', 'corpo'] },
+  { label: 'Pelle a pelle', clusters: ['corpo'] },
+  { label: 'Tensione prima di un bacio', clusters: ['corpo', 'stupore'] },
+  { label: 'Pranzo in famiglia', clusters: ['domestica', 'sociale'] },
+  { label: 'Voce di una persona cara', clusters: ['domestica'] },
+  { label: 'Odore di casa', clusters: ['domestica'] },
+  { label: 'Memoria d\'infanzia felice', clusters: ['domestica'] },
+  { label: 'Tenere in braccio un neonato', clusters: ['domestica', 'corpo'] },
+  { label: 'Amicizia autentica', clusters: ['sociale', 'domestica'] },
+  { label: 'Ridere insieme', clusters: ['sociale', 'stupore'] },
+  { label: 'Condivisione di un pasto', clusters: ['sociale', 'domestica'] },
+  { label: 'Città di notte', clusters: ['sociale', 'contemplativa'] },
+  { label: 'Città all\'alba', clusters: ['contemplativa'] },
+  { label: 'Città sotto la neve', clusters: ['contemplativa', 'domestica'] },
+  { label: 'Chiesa o tempio', clusters: ['spirituale'] },
+  { label: 'Museo', clusters: ['contemplativa', 'creazione'] },
+  { label: 'Biblioteca', clusters: ['contemplativa', 'spirituale'] },
+  { label: 'Luogo di silenzio profondo', clusters: ['spirituale', 'contemplativa'] },
+  { label: 'Concerto in piazza', clusters: ['sociale'] },
+  { label: 'Falò sulla spiaggia', clusters: ['sociale', 'domestica'] },
+  { label: 'Bar con gli amici', clusters: ['sociale'] },
+  { label: 'Mercato vivace', clusters: ['sociale'] },
+  { label: 'Rovine e luoghi abbandonati', clusters: ['stupore', 'contemplativa'] },
+  { label: 'Oscurità totale', clusters: ['spirituale', 'stupore'] },
+  { label: 'Luci soffuse', clusters: ['contemplativa', 'domestica'] },
+  { label: 'Colori vividi', clusters: ['creazione', 'stupore'] },
+  { label: 'Panorama mozzafiato', clusters: ['selvatica', 'stupore'] },
+  { label: 'Petricore (pioggia su asfalto)', clusters: ['acquatica', 'radicante', 'domestica'] },
+  { label: 'Odore di vecchi libri', clusters: ['contemplativa', 'spirituale'] },
+  { label: 'Lenzuola asciugate al sole', clusters: ['domestica'] },
+  { label: 'Profumo della pelle del partner', clusters: ['corpo', 'domestica'] },
+  { label: 'Profumo di un neonato', clusters: ['domestica'] },
+  { label: 'Profumo dei fiori', clusters: ['radicante', 'contemplativa'] },
+  { label: 'Odore di campagna', clusters: ['domestica', 'radicante'] },
+  { label: 'Caffè al mattino', clusters: ['domestica'] },
+  { label: 'Carezza ricevuta', clusters: ['corpo', 'domestica'] },
+  { label: 'Abbraccio stretto', clusters: ['sociale', 'corpo', 'domestica'] },
+  { label: 'Acqua calda sulla pelle', clusters: ['acquatica', 'corpo'] },
+  { label: 'Vento sul viso', clusters: ['corpo', 'selvatica'] },
+  { label: 'Cioccolato', clusters: ['domestica', 'stupore'] },
+  { label: 'Vino condiviso', clusters: ['sociale', 'domestica'] },
+  { label: 'Sapore del mare', clusters: ['acquatica'] },
+  { label: 'Sapore dolce dell\'infanzia', clusters: ['domestica'] },
+  // ── Ancore esperienziali (type: 'experiential') ──
+  // Non sono sensoriali primarie ma trigger autobiografici / di significato:
+  // richiamano sciami di ricordi e sensazioni associate all'esperienza vissuta.
+  // Nell'app vera l'AI le tratterà con linguaggio ericksoniano narrativo
+  // (permissivo, indiretto, pause lunghe) invece di evocazione VAK diretta.
+  { label: 'Curiosità accesa', clusters: ['creazione', 'stupore'], type: 'experiential' },
+  { label: 'Prima volta', clusters: ['stupore', 'creazione'], type: 'experiential' },
+  { label: 'Apprendimento profondo', clusters: ['creazione', 'contemplativa'], type: 'experiential' },
+  { label: 'Superamento di un limite', clusters: ['selvatica', 'corpo'], type: 'experiential' },
+  { label: 'Trasformazione', clusters: ['creazione', 'spirituale'], type: 'experiential' },
+  { label: 'Lasciar andare', clusters: ['spirituale', 'acquatica'], type: 'experiential' },
+  { label: 'Perdono ricevuto', clusters: ['spirituale'], type: 'experiential' },
+  { label: 'Fare ciò che si ama', clusters: ['creazione'], type: 'experiential' }
+];
+
+const QUIZ = [
+  {
+    q: "Quale di queste immagini ti da maggiormente una sensazione di pace?",
+    options: [
+      { emoji: '🏔', label: "Cima di montagna al tramonto, da solo", weights: { selvatica: 2, stupore: 1 } },
+      { emoji: '🌊', label: "Bagno nell'oceano caldo", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '📚', label: "Pomeriggio con un libro in biblioteca silenziosa", weights: { contemplativa: 2, spirituale: 1 } },
+      { emoji: '🔥', label: "Falò sulla spiaggia con amici", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '🕯', label: "Luce di candela in una stanza silenziosa", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '🌿', label: "Bosco fitto dopo la pioggia", weights: { radicante: 2, selvatica: 1 } }
+    ]
+  },
+  {
+    q: "Cosa ti riporta subito con la mente al momento presente?",
+    options: [
+      { emoji: '💃', label: "Muovere il corpo, ballare, correre", weights: { corpo: 2, selvatica: 1 } },
+      { emoji: '🎨', label: "Creare qualcosa con le mani o con la mente", weights: { creazione: 2, contemplativa: 1 } },
+      { emoji: '🌲', label: "Camminare nella natura, respirare", weights: { radicante: 2, selvatica: 1 } },
+      { emoji: '✍️', label: "Scrivere, leggere e pensare", weights: { contemplativa: 2, creazione: 1 } },
+      { emoji: '🤝', label: "Stare con le persone che amo", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '🛁', label: "Contatto con l'acqua tiepida, calore, immersione", weights: { acquatica: 2, corpo: 1 } }
+    ]
+  },
+  {
+    q: "In un momento di stress, per calmarti cerchi...",
+    options: [
+      { emoji: '🌊', label: "L'acqua: doccia, sauna, mare", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '🎵', label: "La musica: cuffie, ti abbandoni", weights: { contemplativa: 2, sociale: 1 } },
+      { emoji: '🌳', label: "La natura: esci, cammini, respiri", weights: { radicante: 2, selvatica: 1 } },
+      { emoji: '🧘', label: "Il silenzio: ti siedi o ti sdrai, chiudi gli occhi", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '👥', label: "La compagnia: chiami un amico, parli", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '📓', label: "Il tuo mondo interiore: scrivi, disegni, organizzi", weights: { creazione: 2, contemplativa: 1 } }
+    ]
+  },
+  {
+    q: "Cosa è sempre capace di stupirti?",
+    options: [
+      { emoji: '✨', label: "Il cielo stellato, l'immensità del cosmo", weights: { stupore: 2, spirituale: 1 } },
+      { emoji: '🌊', label: "La forza dell'acqua, le onde", weights: { acquatica: 2, selvatica: 1 } },
+      { emoji: '😄', label: "Una risata inaspettata, la gioia", weights: { stupore: 2, sociale: 1 } },
+      { emoji: '🎨', label: "La grande arte visiva o musicale", weights: { contemplativa: 2, creazione: 1 } },
+      { emoji: '🤱', label: "Un neonato tra le braccia, uno sguardo profondo", weights: { domestica: 2, corpo: 1 } },
+      { emoji: '🏔', label: "Un panorama mozzafiato, l'alta quota", weights: { selvatica: 2, stupore: 1 } }
+    ]
+  },
+  {
+    q: "Dove ti senti più a tuo agio?",
+    options: [
+      { emoji: '☀️', label: "Al caldo: sole, fuoco, pelle scoperta", weights: { corpo: 2, sociale: 1 } },
+      { emoji: '❄️', label: "Al freddo: aria pulita, neve, alta quota", weights: { selvatica: 2, spirituale: 1 } },
+      { emoji: '🏠', label: "A casa: coperte, luce soffusa, profumi", weights: { domestica: 2, contemplativa: 1 } },
+      { emoji: '🌊', label: "Nell'acqua: docce, bagni, mare", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '🏃', label: "In movimento: camminata, corsa, danza", weights: { corpo: 2, selvatica: 1 } },
+      { emoji: '📖', label: "Nelle parole: libri, conversazioni, idee", weights: { contemplativa: 2, creazione: 1 } }
+    ]
+  },
+  {
+    q: "Il tuo modo di vivere la felicità è...",
+    options: [
+      { emoji: '😆', label: "Esuberante: voce alta, risate, abbracci", weights: { sociale: 2, corpo: 1 } },
+      { emoji: '😌', label: "Silenzioso: chiudi gli occhi e la assapori", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '🎭', label: "Espressivo: scrivi, canti, racconti", weights: { creazione: 2, sociale: 1 } },
+      { emoji: '🌙', label: "Intimo: la vivi con l'amore della tua vita", weights: { domestica: 2, corpo: 1 } },
+      { emoji: '🏃', label: "Fisico: col corpo, con lo sport, con l'agonismo", weights: { corpo: 2, selvatica: 1 } },
+      { emoji: '💭', label: "Contemplativo: la osservi, la studi, la godi da distante", weights: { contemplativa: 2, stupore: 1 } }
+    ]
+  }
+];
+
+// ========================================================
+// STATE
+// ========================================================
+
+let currentQuestion = 0;
+let userAnswers = [];            // [{ q, option_index, option_label, weights }]
+let selectedOption = null;
+let clusterScores = {};
+let dominantClusters = [];
+let proposedAnchors = [];
+let anchorRatings = {};          // { anchor_label: 'risuona'|'indifferente'|'non_mia' }
+let selfRecognition = null;
+let ageRange = null;
+let gender = null;
+
+// ========================================================
+// NAVIGATION
+// ========================================================
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function startQuiz() {
+  currentQuestion = 0;
+  userAnswers = [];
+  selectedOption = null;
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUIZ[currentQuestion];
+  const prev = userAnswers[currentQuestion];
+  selectedOption = prev ? prev.option_index : null;
+
+  // Progress bar
+  const bar = document.getElementById('progress-bar');
+  bar.innerHTML = '';
+  for (let i = 0; i < QUIZ.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot' + (i < currentQuestion ? ' done' : (i === currentQuestion ? ' active' : ''));
+    bar.appendChild(dot);
+  }
+
+  // Question text
+  document.getElementById('question-text').textContent = q.q;
+
+  // Options
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'option' + (selectedOption === i ? ' selected' : '');
+    el.innerHTML = `<div class="option-emoji">${opt.emoji}</div><div class="option-label">${opt.label}</div>`;
+    el.onclick = () => selectOption(i);
+    container.appendChild(el);
+  });
+
+  // Next button
+  const btn = document.getElementById('quiz-next-btn');
+  btn.disabled = selectedOption === null;
+  btn.textContent = currentQuestion === QUIZ.length - 1 ? 'Vedi il risultato' : 'Continua';
+}
+
+function selectOption(i) {
+  selectedOption = i;
+  document.querySelectorAll('#options-container .option').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('quiz-next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  if (selectedOption === null) return;
+  const opt = QUIZ[currentQuestion].options[selectedOption];
+  userAnswers[currentQuestion] = {
+    q: currentQuestion + 1,
+    option_index: selectedOption,
+    option_label: opt.label,
+    weights: opt.weights
+  };
+  currentQuestion++;
+  if (currentQuestion >= QUIZ.length) {
+    computeResults();
+    showScreen('screen-result');
+    renderResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+// ========================================================
+// SCORING
+// ========================================================
+
+function computeResults() {
+  // Cluster scores
+  clusterScores = {};
+  for (const id in CLUSTERS) clusterScores[id] = 0;
+  for (const ans of userAnswers) {
+    for (const cid in ans.weights) {
+      clusterScores[cid] += ans.weights[cid];
+    }
+  }
+
+  // Top 3 clusters (threshold: score >= 3, fallback: sempre almeno 2)
+  const sorted = Object.entries(clusterScores).sort((a, b) => b[1] - a[1]);
+  let top = sorted.filter(([, s]) => s >= 3).slice(0, 3).map(([id]) => id);
+  if (top.length < 2) top = sorted.slice(0, 2).map(([id]) => id);
+  dominantClusters = top;
+
+  // Match anchors
+  const scored = ANCHORS.map(a => {
+    let score = 0;
+    for (let i = 0; i < dominantClusters.length; i++) {
+      if (a.clusters.includes(dominantClusters[i])) {
+        // Peso superiore per cluster #1 (3), poi #2 (2), poi #3 (1)
+        score += (dominantClusters.length - i);
+      }
+    }
+    return { anchor: a, score };
+  });
+
+  // Filtra solo quelle con score > 0, ordina, prendi 20
+  let top20 = scored.filter(s => s.score > 0).sort((a, b) => b.score - a.score).slice(0, 20);
+
+  // Padding: se meno di 20, aggiungi dal cluster #1
+  if (top20.length < 20) {
+    const extra = ANCHORS
+      .filter(a => a.clusters.includes(dominantClusters[0]) && !top20.some(s => s.anchor.label === a.label))
+      .slice(0, 20 - top20.length)
+      .map(a => ({ anchor: a, score: 0.5 }));
+    top20 = top20.concat(extra);
+  }
+
+  proposedAnchors = top20.map(s => s.anchor);
+
+  // Reset ratings
+  anchorRatings = {};
+}
+
+function renderResult() {
+  const container = document.getElementById('clusters-container');
+  container.innerHTML = '';
+  dominantClusters.forEach((cid, i) => {
+    const c = CLUSTERS[cid];
+    const rank = ['Dominante', 'Secondario', 'Terzo'][i] || '';
+    const card = document.createElement('div');
+    card.className = 'cluster-card';
+    card.innerHTML = `
+      <div class="cluster-emoji">${c.emoji}</div>
+      <div class="cluster-info">
+        <div class="cluster-rank">${rank}</div>
+        <div class="cluster-name">${c.name}</div>
+        <div class="cluster-desc">${c.description}</div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ========================================================
+// ANCHORS RATING
+// ========================================================
+
+function showAnchors() {
+  showScreen('screen-anchors');
+  renderAnchors();
+}
+
+function renderAnchors() {
+  const container = document.getElementById('anchors-container');
+  container.innerHTML = '';
+  proposedAnchors.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'anchor-item';
+    const current = anchorRatings[a.label] || null;
+    el.innerHTML = `
+      <div class="anchor-label">${a.label}</div>
+      <div class="rating-row">
+        <button class="rating-btn risuona ${current === 'risuona' ? 'active' : ''}" data-rating="risuona">💚</button>
+        <button class="rating-btn indifferente ${current === 'indifferente' ? 'active' : ''}" data-rating="indifferente">😐</button>
+        <button class="rating-btn non_mia ${current === 'non_mia' ? 'active' : ''}" data-rating="non_mia">❌</button>
+      </div>
+    `;
+    el.querySelectorAll('.rating-btn').forEach(btn => {
+      btn.onclick = () => {
+        const r = btn.dataset.rating;
+        anchorRatings[a.label] = r;
+        el.querySelectorAll('.rating-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.rating === r);
+        });
+        updateAnchorsCounter();
+      };
+    });
+    container.appendChild(el);
+  });
+  updateAnchorsCounter();
+}
+
+function updateAnchorsCounter() {
+  const rated = Object.keys(anchorRatings).length;
+  const total = proposedAnchors.length;
+  document.getElementById('anchors-counter').textContent = `${rated} di ${total} valutati`;
+  document.getElementById('anchors-next-btn').disabled = rated < Math.ceil(total * 0.7);
+}
+
+function showFeedback() {
+  showScreen('screen-feedback');
+  // Wire up button rows
+  bindChoiceRow('recognition-row', v => selfRecognition = v);
+  bindChoiceRow('age-row', v => ageRange = v);
+  bindChoiceRow('gender-row', v => gender = v);
+}
+
+function bindChoiceRow(rowId, callback) {
+  const row = document.getElementById(rowId);
+  if (row.dataset.bound === 'true') return;
+  row.dataset.bound = 'true';
+  row.querySelectorAll('.choice-btn').forEach(btn => {
+    btn.onclick = () => {
+      row.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      callback(btn.dataset.value);
+    };
+  });
+}
+
+// ========================================================
+// FINAL
+// ========================================================
+
+function buildPayload() {
+  return {
+    timestamp: new Date().toISOString(),
+    quiz_answers: userAnswers.map(a => ({ q: a.q, option: a.option_label })),
+    cluster_scores: clusterScores,
+    dominant_clusters: dominantClusters,
+    anchor_ratings: Object.entries(anchorRatings).map(([anchor, rating]) => ({ anchor, rating })),
+    self_recognition: selfRecognition,
+    missing_anchor: document.getElementById('missing-input').value.trim() || null,
+    age_range: ageRange,
+    gender: gender,
+    version: 'test-v1'
+  };
+}
+
+function finalizeResults() {
+  const payload = buildPayload();
+  const preview = formatPayloadForWhatsApp(payload);
+  document.getElementById('results-json').textContent = preview;
+  window._lastPayload = payload;
+  window._lastPayloadText = preview;
+  showScreen('screen-done');
+}
+
+function copyResults() {
+  const text = formatPayloadForWhatsApp(window._lastPayload);
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Risultati copiati! Incollali su WhatsApp e mandali a chi ti ha inviato il link.');
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    alert('Risultati copiati! Incollali su WhatsApp.');
+  } catch {
+    alert('Copia manuale: testo mostrato sotto.');
+  }
+  document.body.removeChild(ta);
+}
+
+function formatPayloadForWhatsApp(p) {
+  const areaNames = p.dominant_clusters.map(id => CLUSTERS[id].emoji + ' ' + CLUSTERS[id].name).join(' · ');
+  const risuona = p.anchor_ratings.filter(r => r.rating === 'risuona').length;
+  const indifferente = p.anchor_ratings.filter(r => r.rating === 'indifferente').length;
+  const non_mia = p.anchor_ratings.filter(r => r.rating === 'non_mia').length;
+  const total = risuona + indifferente + non_mia;
+
+  const recognitionLabel = {
+    si: 'sì, molto',
+    parziale: 'in parte',
+    no: 'no, non mi riconosco'
+  }[p.self_recognition] || 'non indicato';
+
+  const demo = [p.age_range, p.gender === 'f' ? 'donna' : p.gender === 'm' ? 'uomo' : p.gender === 'altro' ? 'altro' : null]
+    .filter(Boolean)
+    .join(', ');
+
+  const lines = [
+    '*Test sulle emozioni — risultati*',
+    '',
+    `Aree emerse: ${areaNames}`,
+    '',
+    `Spunti valutati (${total}):`,
+    `• ${risuona} mi rappresentano`,
+    `• ${indifferente} indifferenti`,
+    `• ${non_mia} non sono miei`,
+  ];
+
+  const rejected = p.anchor_ratings.filter(r => r.rating === 'non_mia').map(r => r.anchor);
+  if (rejected.length > 0) {
+    lines.push('');
+    lines.push('Spunti rifiutati:');
+    rejected.forEach(label => lines.push(`• ${label}`));
+  }
+
+  lines.push('');
+  lines.push(`Mi riconosco in generale: ${recognitionLabel}`);
+
+  if (p.missing_anchor) {
+    lines.push('');
+    lines.push(`Mi manca: "${p.missing_anchor}"`);
+  }
+
+  if (demo) {
+    lines.push('');
+    lines.push(`(${demo})`);
+  }
+
+  return lines.join('\n');
+}
+
+function emailResults() {
+  const p = window._lastPayload;
+  const subject = encodeURIComponent('Esperimento — risultati test psicologico');
+  const body = encodeURIComponent(formatPayloadForWhatsApp(p));
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+</script>
+</body>
+</html>
