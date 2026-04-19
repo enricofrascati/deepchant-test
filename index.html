@@ -171,11 +171,30 @@
     border-radius: 10px;
     padding: 14px 16px;
     margin-bottom: 10px;
+  }
+  .anchor-main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
   }
+  .anchor-reason {
+    display: none;
+    margin-top: 12px;
+    width: 100%;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 56px;
+    box-sizing: border-box;
+  }
+  .anchor-reason.visible { display: block; }
+  .anchor-reason::placeholder { color: var(--text-muted); }
   .anchor-label {
     flex: 1;
     font-size: 15px;
@@ -666,6 +685,7 @@ let clusterScores = {};
 let dominantClusters = [];
 let proposedAnchors = [];
 let anchorRatings = {};          // { anchor_label: 'risuona'|'indifferente'|'non_mia' }
+let anchorReasons = {};          // { anchor_label: 'motivo' } — solo per non_mia
 let selfRecognition = null;
 let ageRange = null;
 let gender = null;
@@ -797,6 +817,7 @@ function computeResults() {
 
   // Reset ratings
   anchorRatings = {};
+  anchorReasons = {};
 }
 
 function renderResult() {
@@ -835,14 +856,19 @@ function renderAnchors() {
     const el = document.createElement('div');
     el.className = 'anchor-item';
     const current = anchorRatings[a.label] || null;
+    const reasonValue = anchorReasons[a.label] || '';
     el.innerHTML = `
-      <div class="anchor-label">${a.label}</div>
-      <div class="rating-row">
-        <button class="rating-btn risuona ${current === 'risuona' ? 'active' : ''}" data-rating="risuona">💚</button>
-        <button class="rating-btn indifferente ${current === 'indifferente' ? 'active' : ''}" data-rating="indifferente">😐</button>
-        <button class="rating-btn non_mia ${current === 'non_mia' ? 'active' : ''}" data-rating="non_mia">❌</button>
+      <div class="anchor-main">
+        <div class="anchor-label">${a.label}</div>
+        <div class="rating-row">
+          <button class="rating-btn risuona ${current === 'risuona' ? 'active' : ''}" data-rating="risuona">💚</button>
+          <button class="rating-btn indifferente ${current === 'indifferente' ? 'active' : ''}" data-rating="indifferente">😐</button>
+          <button class="rating-btn non_mia ${current === 'non_mia' ? 'active' : ''}" data-rating="non_mia">❌</button>
+        </div>
       </div>
+      <textarea class="anchor-reason ${current === 'non_mia' ? 'visible' : ''}" placeholder="Perché? (opzionale)" rows="2">${reasonValue}</textarea>
     `;
+    const reasonEl = el.querySelector('.anchor-reason');
     el.querySelectorAll('.rating-btn').forEach(btn => {
       btn.onclick = () => {
         const r = btn.dataset.rating;
@@ -850,8 +876,20 @@ function renderAnchors() {
         el.querySelectorAll('.rating-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.rating === r);
         });
+        if (r === 'non_mia') {
+          reasonEl.classList.add('visible');
+        } else {
+          reasonEl.classList.remove('visible');
+          reasonEl.value = '';
+          delete anchorReasons[a.label];
+        }
         updateAnchorsCounter();
       };
+    });
+    reasonEl.addEventListener('input', () => {
+      const v = reasonEl.value.trim();
+      if (v) anchorReasons[a.label] = v;
+      else delete anchorReasons[a.label];
     });
     container.appendChild(el);
   });
@@ -896,7 +934,11 @@ function buildPayload() {
     quiz_answers: userAnswers.map(a => ({ q: a.q, option: a.option_label })),
     cluster_scores: clusterScores,
     dominant_clusters: dominantClusters,
-    anchor_ratings: Object.entries(anchorRatings).map(([anchor, rating]) => ({ anchor, rating })),
+    anchor_ratings: Object.entries(anchorRatings).map(([anchor, rating]) => {
+      const item = { anchor, rating };
+      if (rating === 'non_mia' && anchorReasons[anchor]) item.reason = anchorReasons[anchor];
+      return item;
+    }),
     self_recognition: selfRecognition,
     missing_anchor: document.getElementById('missing-input').value.trim() || null,
     age_range: ageRange,
@@ -967,11 +1009,14 @@ function formatPayloadForWhatsApp(p) {
     `• ${non_mia} non sono miei`,
   ];
 
-  const rejected = p.anchor_ratings.filter(r => r.rating === 'non_mia').map(r => r.anchor);
+  const rejected = p.anchor_ratings.filter(r => r.rating === 'non_mia');
   if (rejected.length > 0) {
     lines.push('');
     lines.push('Spunti rifiutati:');
-    rejected.forEach(label => lines.push(`• ${label}`));
+    rejected.forEach(r => {
+      if (r.reason) lines.push(`• ${r.anchor} — ${r.reason}`);
+      else lines.push(`• ${r.anchor}`);
+    });
   }
 
   lines.push('');
