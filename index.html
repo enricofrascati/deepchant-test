@@ -300,10 +300,11 @@
 <!-- ============================================ -->
 <div class="screen active" id="screen-welcome">
   <div class="brand">SPERIMENTALE</div>
-  <h1>Test delle emozioni</h1>
+  <h1>Test delle emozioni di Enrico</h1>
   <p>Quello che segue è un test psicologico di mia invenzione. Rispondi a sei domande (3 minuti di tempo) e, al termine, ti mostrerò una lista di 15-20 immagini evocative.</p>
+  <p>Scopo del test è capire se le domande sono in grado di individuare con precisione le immagini evocative che ti rappresentano.</p>
   <div class="divider"></div>
-  <p class="meta">Le tue risposte restano anonime. Alla fine ti chiederò di copiare il risultato numerico del test e inviarmelo via WhatsApp o email.</p>
+  <p class="meta">Le tue risposte alle domande restano completamente anonime. Per garantire la massima trasparenza, vedrai il risultato del test e dovrai copiarlo e incollarlo su WhatsApp o email e inviarmelo.</p>
   <button class="btn" onclick="startQuiz()">Iniziamo</button>
 </div>
 
@@ -334,7 +335,7 @@
 <!-- SCHERMATA RATING ANCORE -->
 <!-- ============================================ -->
 <div class="screen" id="screen-anchors">
-  <div class="brand">VALUTA GLI SPUNTI</div>
+  <div class="brand">VALUTA LE IMMAGINI</div>
   <h2>Quali di questi spunti ti parlano?</h2>
   <div class="rating-legend">
     <span><strong style="color: var(--green)">💚</strong> mi risuona</span>
@@ -587,46 +588,46 @@ const ANCHORS = [
 
 const QUIZ = [
   {
-    q: "Quale di queste immagini ti da maggiormente una sensazione di pace?",
+    q: "Quale di queste immagini ti evoca maggiormente una sensazione di pace?",
     options: [
-      { emoji: '🏔', label: "Cima di montagna al tramonto, da solo", weights: { selvatica: 2, stupore: 1 } },
-      { emoji: '🌊', label: "Bagno nell'oceano caldo", weights: { acquatica: 2, corpo: 1 } },
-      { emoji: '📚', label: "Pomeriggio con un libro in biblioteca silenziosa", weights: { contemplativa: 2, spirituale: 1 } },
-      { emoji: '🔥', label: "Falò sulla spiaggia con amici", weights: { sociale: 2, domestica: 1 } },
-      { emoji: '🕯', label: "Luce di candela in una stanza silenziosa", weights: { spirituale: 2, contemplativa: 1 } },
-      { emoji: '🌿', label: "Bosco fitto dopo la pioggia", weights: { radicante: 2, selvatica: 1 } }
+      { emoji: '🏔', label: "La cima di una montagna al tramonto, da solo", weights: { selvatica: 2, stupore: 1 } },
+      { emoji: '🌊', label: "Un bagno nel mare calmo, l'acqua è tiepida", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '📚', label: "Una biblioteca silenziosa piena di libri da esplorare", weights: { contemplativa: 2, spirituale: 1 } },
+      { emoji: '🔥', label: "Un falò sulla spiaggia con gli amici", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '🕯', label: "La luce di una candela in una stanza silenziosa e in penombra", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '🌿', label: "Il fitto del bosco dopo una pioggia rinfrescante", weights: { radicante: 2, selvatica: 1 } }
     ]
   },
   {
-    q: "Cosa ti riporta subito con la mente al momento presente?",
+    q: "Quale attività ti riporta subito con la mente al presente, allontanando ogni pensiero e ansia?",
     options: [
-      { emoji: '💃', label: "Muovere il corpo, ballare, correre", weights: { corpo: 2, selvatica: 1 } },
+      { emoji: '💃', label: "Il movimento del corpo: ballare, correre, fare sport", weights: { corpo: 2, selvatica: 1 } },
       { emoji: '🎨', label: "Creare qualcosa con le mani o con la mente", weights: { creazione: 2, contemplativa: 1 } },
-      { emoji: '🌲', label: "Camminare nella natura, respirare", weights: { radicante: 2, selvatica: 1 } },
-      { emoji: '✍️', label: "Scrivere, leggere e pensare", weights: { contemplativa: 2, creazione: 1 } },
-      { emoji: '🤝', label: "Stare con le persone che amo", weights: { sociale: 2, domestica: 1 } },
-      { emoji: '🛁', label: "Contatto con l'acqua tiepida, calore, immersione", weights: { acquatica: 2, corpo: 1 } }
+      { emoji: '🌲', label: "Una bella camminata nella natura, respirando profondamente", weights: { radicante: 2, selvatica: 1 } },
+      { emoji: '✍️', label: "Scrivere, leggere e perderti nei tuoi pensieri", weights: { contemplativa: 2, creazione: 1 } },
+      { emoji: '🤝', label: "Lo stare in compagnia delle persone che ami", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '🛁', label: "Il bagno nell'acqua tiepida: percepirne il calore, immergerti nel suo abbraccio", weights: { acquatica: 2, corpo: 1 } }
     ]
   },
   {
     q: "In un momento di stress, per calmarti cerchi...",
     options: [
-      { emoji: '🌊', label: "L'acqua: doccia, sauna, mare", weights: { acquatica: 2, corpo: 1 } },
-      { emoji: '🎵', label: "La musica: cuffie, ti abbandoni", weights: { contemplativa: 2, sociale: 1 } },
-      { emoji: '🌳', label: "La natura: esci, cammini, respiri", weights: { radicante: 2, selvatica: 1 } },
-      { emoji: '🧘', label: "Il silenzio: ti siedi o ti sdrai, chiudi gli occhi", weights: { spirituale: 2, contemplativa: 1 } },
-      { emoji: '👥', label: "La compagnia: chiami un amico, parli", weights: { sociale: 2, domestica: 1 } },
-      { emoji: '📓', label: "Il tuo mondo interiore: scrivi, disegni, organizzi", weights: { creazione: 2, contemplativa: 1 } }
+      { emoji: '🌊', label: "L'acqua: una doccia, una sauna, il mare", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '🎵', label: "La musica: metti le cuffie, alzi il volume, ti abbandoni al ritmo e alla melodia", weights: { contemplativa: 2, sociale: 1 } },
+      { emoji: '🌳', label: "La natura: esci di casa, cammini nel verde, respiri aria pulita", weights: { radicante: 2, selvatica: 1 } },
+      { emoji: '🧘', label: "Il silenzio: chiudi la porta della stanza, ti siedi o ti sdrai e tagli fuori ogni cosa", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '👥', label: "La compagnia: chiami un amico, esci per stare in gruppo, chiacchieri con qualcuno", weights: { sociale: 2, domestica: 1 } },
+      { emoji: '📓', label: "Il tuo mondo interiore: ti focalizzi sulle tue idee e scrivi, disegni o organizzi", weights: { creazione: 2, contemplativa: 1 } }
     ]
   },
   {
     q: "Cosa è sempre capace di stupirti?",
     options: [
       { emoji: '✨', label: "Il cielo stellato, l'immensità del cosmo", weights: { stupore: 2, spirituale: 1 } },
-      { emoji: '🌊', label: "La forza dell'acqua, le onde", weights: { acquatica: 2, selvatica: 1 } },
-      { emoji: '😄', label: "Una risata inaspettata, la gioia", weights: { stupore: 2, sociale: 1 } },
-      { emoji: '🎨', label: "La grande arte visiva o musicale", weights: { contemplativa: 2, creazione: 1 } },
-      { emoji: '🤱', label: "Un neonato tra le braccia, uno sguardo profondo", weights: { domestica: 2, corpo: 1 } },
+      { emoji: '🌊', label: "La forza dell'acqua, il movimento delle onde", weights: { acquatica: 2, selvatica: 1 } },
+      { emoji: '😄', label: "Una risata inaspettata, la gioia di un istante", weights: { stupore: 2, sociale: 1 } },
+      { emoji: '🎨', label: "La grande arte, in qualsiasi forma (un brano, un quadro, una scultura, ecc.)", weights: { contemplativa: 2, creazione: 1 } },
+      { emoji: '🫂', label: "Un abbraccio lungo e sincero", weights: { domestica: 2, corpo: 1 } },
       { emoji: '🏔', label: "Un panorama mozzafiato, l'alta quota", weights: { selvatica: 2, stupore: 1 } }
     ]
   },
