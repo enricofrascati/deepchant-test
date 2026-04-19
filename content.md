@@ -97,21 +97,21 @@ Modifica qui, poi Claude reintegra nell'HTML.
 1. ☀️ Al caldo: sole, fuoco, pelle scoperta
 2. ❄️ Al freddo: aria pulita, neve, alta quota
 3. 🏠 A casa: coperte, luce soffusa, profumi
-4. 🌊 Nell'acqua: docce, bagni, mare
-5. 🏃 In movimento: camminata, corsa, danza
-6. 📖 Nelle parole: libri, conversazioni, idee
+4. 🌊 Nell'acqua: vasca da bagno, mare, piscina
+5. 🏃 In movimento: camminare, correre, danzare
+6. 📖 Nelle parole: leggere, conversare, pensare
 
 ### Q6
 
 **Domanda:** Il tuo modo di vivere la felicità è...
 
 **Opzioni:**
-1. 😆 Esuberante: voce alta, risate, abbracci
-2. 😌 Silenzioso: chiudi gli occhi e la assapori
-3. 🎭 Espressivo: scrivi, canti, racconti
-4. 🌙 Intimo: la vivi con l'amore della tua vita
+1. 😆 Esuberante: a voce alta, risate, abbracci
+2. 😌 Silenzioso: occhi chiusi, assaporandola
+3. 🎭 Espressivo: scrivendo, cantando, raccontando
+4. 🌙 Intimo: con le persone che ami
 5. 🏃 Fisico: col corpo, con lo sport, con l'agonismo
-6. 💭 Contemplativo: la osservi, la studi, la godi da distante
+6. 💭 Contemplativo: osservandola, studiandola, con distacco, da distante
 
 ---
 
@@ -119,18 +119,18 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 - **Header piccolo:** IL TUO PROFILO
 
-- **Titolo:** Le aree emotive principali
+- **Titolo:** Le tue zone emotive principali
 
-- **Paragrafo intro:** Basandomi sulle tue risposte, le aree emotive che ti rappresentano di più sono:
+- **Paragrafo intro:** Basandomi sulle tue risposte, gli ambiti in cui vivi maggiormente le tue emozioni sono: 
 
-- **Paragrafo post-aree:** Sulla prossima pagina trovi gli spunti scelti per te. Indica per ognuno se richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Mi serve per capire se il test è efficace o se va migliorato.
+- **Paragrafo post-aree:** Sulla prossima pagina trovi le immagini evocative scelte per te. Per ognuno vedrai tre bottoni per indicare se quell'immagine richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Lo scopo è solo quello di capire se il test è efficace per individuare le tue immagini emotive o se va invece migliorato.
 
 - **Bottone procedi:** Procedi
 
 ### Etichette di ranking aree (posizione nel profilo)
 - Posizione 1: Dominante
-- Posizione 2: Secondario
-- Posizione 3: Terzo
+- Posizione 2: Secondaria
+- Posizione 3: Terziaria
 
 ---
 
@@ -155,7 +155,7 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 ### acquatica
 - emoji: 🌊
-- **nome:** Acquatico profondo
+- **nome:** Acquatica profonda
 - **descrizione:** Acqua in tutte le forme, immersione, quiete fluida.
 
 ### spirituale
@@ -194,16 +194,16 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 - **Header piccolo:** VALUTA LE IMMAGINI
 
-- **Titolo:** Quali di questi spunti ti parlano?
+- **Titolo:** Quali di queste immagini generano in te emozioni?
 
 - **Legenda:**
   - 💚 mi risuona
-  - 😐 indifferente
-  - ❌ non è mio
+  - 😐 mi è indifferente
+  - ❌ non è per me
 
 - **Bottone continua:** Continua
 
-- **Counter (in basso):** `{rated} di {total} valutati`
+- **Counter (in basso):** `{rated} di {total} valutate`
   _(Es. "7 di 20 valutati")_
 
 > Il bottone "Continua" è disabilitato finché non hai valutato almeno il 70% degli spunti (14 su 20).
@@ -224,7 +224,7 @@ Modifica qui, poi Claude reintegra nell'HTML.
   3. No, non mi riconosco
 
 ### Domanda spunto mancante
-- **Label:** C'è uno spunto che ti provoca emozioni che non hai visto nella lista?
+- **Label:** C'è un'immagine che pensavi avresti trovato nella lista e invece non c'era? 
 - **Placeholder:** Es. Il profumo di pino quando cammino in montagna...
 
 ### Età (opzionale)

@@ -367,11 +367,11 @@
 <!-- ============================================ -->
 <div class="screen" id="screen-result">
   <div class="brand">IL TUO PROFILO</div>
-  <h2>Le aree emotive principali</h2>
-  <p style="font-size: 14px;">Basandomi sulle tue risposte, le aree emotive che ti rappresentano di più sono:</p>
+  <h2>Le tue zone emotive principali</h2>
+  <p style="font-size: 14px;">Basandomi sulle tue risposte, gli ambiti in cui vivi maggiormente le tue emozioni sono:</p>
   <div id="clusters-container"></div>
   <div class="divider"></div>
-  <p style="font-size: 14px;">Sulla prossima pagina trovi gli spunti scelti per te. Indica per ognuno se richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Mi serve per capire se il test è efficace o se va migliorato.</p>
+  <p style="font-size: 14px;">Sulla prossima pagina trovi le immagini evocative scelte per te. Per ognuno vedrai tre bottoni per indicare se quell'immagine richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Lo scopo è solo quello di capire se il test è efficace per individuare le tue immagini emotive o se va invece migliorato.</p>
   <button class="btn" onclick="showAnchors()">Procedi</button>
 </div>
 
@@ -380,11 +380,11 @@
 <!-- ============================================ -->
 <div class="screen" id="screen-anchors">
   <div class="brand">VALUTA LE IMMAGINI</div>
-  <h2>Quali di questi spunti ti parlano?</h2>
+  <h2>Quali di queste immagini generano in te emozioni?</h2>
   <div class="rating-legend">
     <span><strong style="color: var(--green)">💚</strong> mi risuona</span>
-    <span><strong style="color: var(--text-primary)">😐</strong> indifferente</span>
-    <span><strong style="color: var(--red)">❌</strong> non è mio</span>
+    <span><strong style="color: var(--text-primary)">😐</strong> mi è indifferente</span>
+    <span><strong style="color: var(--red)">❌</strong> non è per me</span>
   </div>
   <div id="anchors-container"></div>
   <button class="btn" id="anchors-next-btn" onclick="showFeedback()">Continua</button>
@@ -408,7 +408,7 @@
   </div>
 
   <div class="form-group">
-    <label class="form-label">C'è uno spunto che ti provoca emozioni che non hai visto nella lista?</label>
+    <label class="form-label">C'è un'immagine che pensavi avresti trovato nella lista e invece non c'era?</label>
     <textarea class="form-textarea" id="missing-input" placeholder="Es. Il profumo di pino quando cammino in montagna..."></textarea>
   </div>
 
@@ -469,7 +469,7 @@ const CLUSTERS = {
   selvatica:      { emoji: '🏔', name: 'Anima selvatica', description: 'Natura grezza, movimento, solitudine, sfida, avventura.' },
   contemplativa:  { emoji: '🎭', name: 'Estetica contemplativa', description: 'Sensibilità estetica, osservazione silenziosa, raffinatezza.' },
   sociale:        { emoji: '🔥', name: 'Fuoco sociale', description: 'Connessione, calore, convivialità, movimento con altri.' },
-  acquatica:      { emoji: '🌊', name: 'Acquatico profondo', description: 'Acqua in tutte le forme, immersione, quiete fluida.' },
+  acquatica:      { emoji: '🌊', name: 'Acquatica profonda', description: 'Acqua in tutte le forme, immersione, quiete fluida.' },
   spirituale:     { emoji: '🕯', name: 'Spiritualità calma', description: 'Silenzio, quiete estrema, interiorità, sacralità.' },
   radicante:      { emoji: '🌿', name: 'Terra radicante', description: 'Natura solida, radicamento, olfatto, tatto, tranquillità.' },
   corpo:          { emoji: '💃', name: 'Corpo vivo', description: 'Movimento, tatto, pelle, erotismo, fisicità.' },
@@ -681,20 +681,20 @@ const QUIZ = [
       { emoji: '☀️', label: "Al caldo: sole, fuoco, pelle scoperta", weights: { corpo: 2, sociale: 1 } },
       { emoji: '❄️', label: "Al freddo: aria pulita, neve, alta quota", weights: { selvatica: 2, spirituale: 1 } },
       { emoji: '🏠', label: "A casa: coperte, luce soffusa, profumi", weights: { domestica: 2, contemplativa: 1 } },
-      { emoji: '🌊', label: "Nell'acqua: docce, bagni, mare", weights: { acquatica: 2, corpo: 1 } },
-      { emoji: '🏃', label: "In movimento: camminata, corsa, danza", weights: { corpo: 2, selvatica: 1 } },
-      { emoji: '📖', label: "Nelle parole: libri, conversazioni, idee", weights: { contemplativa: 2, creazione: 1 } }
+      { emoji: '🌊', label: "Nell'acqua: vasca da bagno, mare, piscina", weights: { acquatica: 2, corpo: 1 } },
+      { emoji: '🏃', label: "In movimento: camminare, correre, danzare", weights: { corpo: 2, selvatica: 1 } },
+      { emoji: '📖', label: "Nelle parole: leggere, conversare, pensare", weights: { contemplativa: 2, creazione: 1 } }
     ]
   },
   {
     q: "Il tuo modo di vivere la felicità è...",
     options: [
-      { emoji: '😆', label: "Esuberante: voce alta, risate, abbracci", weights: { sociale: 2, corpo: 1 } },
-      { emoji: '😌', label: "Silenzioso: chiudi gli occhi e la assapori", weights: { spirituale: 2, contemplativa: 1 } },
-      { emoji: '🎭', label: "Espressivo: scrivi, canti, racconti", weights: { creazione: 2, sociale: 1 } },
-      { emoji: '🌙', label: "Intimo: la vivi con l'amore della tua vita", weights: { domestica: 2, corpo: 1 } },
+      { emoji: '😆', label: "Esuberante: a voce alta, risate, abbracci", weights: { sociale: 2, corpo: 1 } },
+      { emoji: '😌', label: "Silenzioso: occhi chiusi, assaporandola", weights: { spirituale: 2, contemplativa: 1 } },
+      { emoji: '🎭', label: "Espressivo: scrivendo, cantando, raccontando", weights: { creazione: 2, sociale: 1 } },
+      { emoji: '🌙', label: "Intimo: con le persone che ami", weights: { domestica: 2, corpo: 1 } },
       { emoji: '🏃', label: "Fisico: col corpo, con lo sport, con l'agonismo", weights: { corpo: 2, selvatica: 1 } },
-      { emoji: '💭', label: "Contemplativo: la osservi, la studi, la godi da distante", weights: { contemplativa: 2, stupore: 1 } }
+      { emoji: '💭', label: "Contemplativo: osservandola, studiandola, con distacco, da distante", weights: { contemplativa: 2, stupore: 1 } }
     ]
   }
 ];
@@ -850,7 +850,7 @@ function renderResult() {
   container.innerHTML = '';
   dominantClusters.forEach((cid, i) => {
     const c = CLUSTERS[cid];
-    const rank = ['Dominante', 'Secondario', 'Terzo'][i] || '';
+    const rank = ['Dominante', 'Secondaria', 'Terziaria'][i] || '';
     const card = document.createElement('div');
     card.className = 'cluster-card';
     card.innerHTML = `
@@ -924,7 +924,7 @@ function renderAnchors() {
 function updateAnchorsCounter() {
   const rated = Object.keys(anchorRatings).length;
   const total = proposedAnchors.length;
-  document.getElementById('anchors-counter').textContent = `${rated} di ${total} valutati`;
+  document.getElementById('anchors-counter').textContent = `${rated} di ${total} valutate`;
   document.getElementById('anchors-next-btn').disabled = rated < Math.ceil(total * 0.7);
 }
 
