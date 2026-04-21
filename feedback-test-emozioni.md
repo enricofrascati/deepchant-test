@@ -37,6 +37,10 @@ Ogni voce contiene il messaggio copiato dal tester + eventuali note qualitative 
   - Non c'è problema di matching cluster → problema di **granularità dentro il cluster**
 - **Campo "perché" finalmente in azione con motivazioni estetiche**, non solo avversione sensoriale (come i libri/muffa di Chiara). Il dato qualitativo raccolto è *ricchissimo* per il dataset: non "Mattia rifiuta Poesia" ma "Mattia rifiuta Poesia per preferenza per il reale vs artefatto". Conferma definitiva dell'utilità del campo.
 - **Manca "il deserto al tramonto"** — terza richiesta consecutiva di scena compound (deserto + tramonto, entrambe già ancore singole). 3/3 tester chiedono scene composte.
+- **Messaggio post-test di Mattia:** *"attenzione perché io sono il re delle contraddizioni. Adoro il deserto al tramonto col vento nei capelli, e lo stadio con 90mila persone"*. Analisi:
+  - La "contraddizione" che rivendica è in realtà **già catturata dal sistema**: Anima selvatica + Fuoco sociale sono i poli opposti del wheel dei cluster, e lui li ha entrambi nel top 3. Il sistema multi-cluster funziona proprio per questi profili.
+  - Sottotesto: **rivendicazione identitaria** tipica degli analitici — *"non ridurmi a una categoria"*. Segnale che alla fine del quiz servirebbe un messaggio UX esplicito che disinneschi preventivamente questa reazione (tipo: *"questo profilo non ti definisce, è solo un vocabolario da cui gli script pescheranno — comprese le tue contraddizioni"*).
+  - Anche qui, **entrambi i momenti citati sono scene compound**: "deserto al tramonto col vento nei capelli" (deserto + tramonto + vento) e "stadio con 90mila persone" (concerto in piazza + folla). 4/4 conferme del pattern compound.
 
 ### Elena — 30-45, donna (21/4/2026)
 
@@ -132,6 +136,17 @@ Senza il campo "perché" avremmo solo dati quantitativi binari (rifiuta/non rifi
 
 **6. Bug copia su Android Chrome (Elena, 21/4 — fixato).**
 `navigator.clipboard.writeText()` non funzionava silenziosamente. Fix: strategia execCommand-first + user-select:all come fallback + feedback bottone "✓ Copiato!" al posto di alert. Da monitorare sui prossimi tester Android/iOS.
+
+**7. Rivendicazione identitaria post-test (da Mattia, 21/4).**
+Dopo aver ricevuto il profilo, Mattia ha scritto *"attenzione perché io sono il re delle contraddizioni"*. È un pattern prevedibile tra utenti analitici e auto-consapevoli: la reazione al risultato è "non ridurmi a categoria".
+
+Ironicamente, la contraddizione che rivendica (deserto solitario + stadio con folla) **è proprio ciò che il sistema ha catturato** (Selvatica + Sociale, poli opposti nel top 3). Il problema non è la profilazione, è la **comunicazione del risultato**.
+
+**Implicazione UX (da implementare in futuro):** alla fine del quiz, messaggio esplicito che disinneschi preventivamente questa reazione. Esempio:
+
+> *"Questo profilo non ti definisce: è un vocabolario di immagini da cui gli script pescheranno per risuonare con te. Puoi essere contemplativo e ribelle, solitario e sociale, analitico e sensuale — le tue contraddizioni fanno parte del profilo, non lo rompono."*
+
+Questa comunicazione educa il tester a vedere il risultato come **strumento non etichetta**, riducendo la reazione di auto-difesa identitaria che è più probabile in utenti analitici.
 
 ### Ancore candidate a review (dopo più tester)
 
