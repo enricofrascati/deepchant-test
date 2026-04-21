@@ -300,6 +300,11 @@
     max-height: 180px;
     overflow-y: auto;
     margin-bottom: 16px;
+    /* Consente tap-and-hold → "Seleziona tutto" su mobile come fallback
+       se la copia automatica non funziona */
+    user-select: all;
+    -webkit-user-select: all;
+    cursor: text;
   }
   .screen { display: none; }
   .screen.active { display: block; animation: fadeIn 0.3s ease; }
@@ -991,27 +996,55 @@ function finalizeResults() {
 
 function copyResults() {
   const text = formatPayloadForWhatsApp(window._lastPayload);
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Risultati copiati! Incollali su WhatsApp e mandali a chi ti ha inviato il link.');
-    }).catch(() => fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
-}
+  const btn = document.querySelector('#screen-done button.btn');
+  const originalLabel = btn ? btn.textContent : null;
 
-function fallbackCopy(text) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand('copy');
-    alert('Risultati copiati! Incollali su WhatsApp.');
-  } catch {
-    alert('Copia manuale: testo mostrato sotto.');
+  function showSuccess() {
+    if (btn && originalLabel) {
+      btn.textContent = '✓ Copiato!';
+      setTimeout(() => { btn.textContent = originalLabel; }, 2500);
+    }
   }
-  document.body.removeChild(ta);
+
+  function showManualHint() {
+    alert(
+      "Non è stato possibile copiare automaticamente.\n\n" +
+      "Seleziona manualmente il testo nel riquadro sopra: " +
+      "tieni premuto sul testo, scegli \"Seleziona tutto\" e poi \"Copia\"."
+    );
+  }
+
+  // Tentativo 1: execCommand (sync, più compatibile sui browser mobile Android/iOS)
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.opacity = '0';
+    ta.setAttribute('readonly', '');
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (ok) {
+      showSuccess();
+      return;
+    }
+  } catch {
+    // continua con tentativo 2
+  }
+
+  // Tentativo 2: Clipboard API async (browser moderni desktop, alcuni mobile)
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(showSuccess).catch(showManualHint);
+  } else {
+    showManualHint();
+  }
 }
 
 function formatPayloadForWhatsApp(p) {
