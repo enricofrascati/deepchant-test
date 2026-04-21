@@ -9,6 +9,35 @@ Ogni voce contiene il messaggio copiato dal tester + eventuali note qualitative 
 
 <!-- Aggiungere nuovi tester sopra, più recenti in alto -->
 
+### Mattia — 45-60, uomo (21/4/2026)
+
+**Aree emerse:** 🎨 Creazione viva · 🏔 Anima selvatica · 🔥 Fuoco sociale
+
+**Spunti valutati (20):**
+- 12 mi rappresentano
+- 4 indifferenti
+- 4 non sono miei
+
+**Spunti rifiutati (con motivazione):**
+- **Scultura** — "la scultura non mi ha mai generato forti emozioni. È una forma espressiva di arte che non riesco ad apprezzare"
+- **Teatro** — "Lo trovo finto. Io amo il reale"
+- **Poesia** — "La poesia è una forma di scrittura, che, un po' come il teatro, trovo artefatta"
+- **Colori vividi** — "Amo i chiaroscuri, il desaturato, il nero"
+
+**Mi riconosco in generale:** in parte
+
+**Manca:** "il deserto. Nulla come il deserto al tramonto mi genera pace"
+
+#### Note qualitative
+
+- **Primo tester con riconoscimento "in parte"** (non "sì molto" come Chiara ed Elena). Segnale importante: il match rate del 60% (12/20 rappresentative) è inferiore ai precedenti, e lui stesso lo registra come parziale.
+- **I 4 rifiuti sono *tutti* ancore del cluster Creazione viva** (Scultura, Teatro, Poesia, Colori vividi). Mattia HA il cluster Creazione viva come dominante, ma **rifiuta 4 delle ancore più caratteristiche di quel cluster**. Paradosso apparente che rivela un pattern interessante:
+  - Il cluster "Creazione viva" contiene stili espressivi molto eterogenei (arti figurative, arti performative, scrittura creativa, ecc.)
+  - Mattia è creativo ma ama il **reale**, non l'artefatto; ama il **chiaroscuro** non il saturo
+  - Non c'è problema di matching cluster → problema di **granularità dentro il cluster**
+- **Campo "perché" finalmente in azione con motivazioni estetiche**, non solo avversione sensoriale (come i libri/muffa di Chiara). Il dato qualitativo raccolto è *ricchissimo* per il dataset: non "Mattia rifiuta Poesia" ma "Mattia rifiuta Poesia per preferenza per il reale vs artefatto". Conferma definitiva dell'utilità del campo.
+- **Manca "il deserto al tramonto"** — terza richiesta consecutiva di scena compound (deserto + tramonto, entrambe già ancore singole). 3/3 tester chiedono scene composte.
+
 ### Elena — 30-45, donna (21/4/2026)
 
 **Aree emerse:** 🏔 Anima selvatica · 🌿 Terra radicante · 💃 Corpo vivo
@@ -56,24 +85,64 @@ Ogni voce contiene il messaggio copiato dal tester + eventuali note qualitative 
 
 ## Note trasversali
 
-### Pattern emergenti (aggiornato 21/4/2026, dopo 2 tester reali)
+### Pattern emergenti (aggiornato 21/4/2026, dopo 3 tester reali)
 
-**1. Entrambi i profili naturali hanno dato 3 cluster dominanti.**
-Chiara (contemplativa + spirituale + stupore) ed Elena (selvatica + radicante + corpo) entrambe con 3 cluster. Un test artificioso fatto internamente (forzando risposte "social") ha dato solo 2 cluster, in corretto funzionamento della soglia score ≥3. Conferma: profili umani autentici hanno sempre sfaccettatura sufficiente per restituire 3 cluster. **Se un tester reale dà 2 cluster, annotarlo come caso peculiare** (profilo monolitico o compilazione strategica).
+**1. Tutti e 3 i profili naturali hanno dato 3 cluster dominanti.**
+- Chiara: contemplativa + spirituale + stupore
+- Elena: selvatica + radicante + corpo
+- Mattia: creazione + selvatica + sociale
 
-**2. Ancora mancante: pattern "scena compound" (2/2 tester).**
-- Chiara: *"Il vento forte sul mare"* (combina 2 ancore esistenti: vento forte + mare aperto)
-- Elena: *"Corsa su strada in solitaria all'alba con il silenzio della città che ancora dorme"* (combina 4-5 ancore: corsa + alba + città all'alba + silenzio)
+Un test artificioso fatto internamente (forzando risposte "social") ha dato solo 2 cluster → la soglia score ≥3 sta filtrando correttamente. Conferma: **profili umani autentici hanno sempre sfaccettatura sufficiente per restituire 3 cluster**. Se un tester reale dà 2 cluster, annotarlo come caso peculiare (profilo monolitico o compilazione strategica).
 
-Gli utenti **non pensano in ancore atomiche** — pensano in **scene narrative** composte. Il dataset attuale ha unità atomiche (mare, vento, alba, corsa); gli utenti chiedono COMBINAZIONI specifiche che evocano un momento preciso.
+**2. Ancora mancante: pattern "scena compound" CONFERMATO su 3/3 tester.**
+- Chiara: *"Il vento forte sul mare"* (vento forte + mare aperto)
+- Elena: *"Corsa su strada in solitaria all'alba con il silenzio della città che ancora dorme"* (corsa + alba + città all'alba + silenzio)
+- Mattia: *"Il deserto al tramonto"* (deserto + tramonto)
 
-**Implicazioni:**
-- **Breve termine**: alla feature "aggiungi ancora custom" già in roadmap va data priorità alta — gli utenti vogliono esprimere combinazioni personali
-- **Medio termine**: valutare se aggiungere 15-20 "scene compound" di alto valore al dataset (es. "mare in tempesta", "bosco all'alba", "città deserta di notte") come nuovo tipo di ancora `type: 'scene'`
-- **Lungo termine**: l'AI di generazione script può ricombinare le ancore in scene — ma richiede prompt engineering dedicato
+Pattern *solidissimo* ora. Gli utenti **non pensano in ancore atomiche** — pensano in **scene narrative** composte. Il dataset atomico non raccoglie questo livello di specificità emotiva.
 
-**3. Match rate alto (50-70%) quando il profilo è coerente.**
-Nessun tester ha avuto match rate <50%. Conferma che l'algoritmo scoring + top 20 selection funziona bene per profili naturalmente sfaccettati.
+**Implicazioni (priorità alzata):**
+- **Urgente**: priorità massima alla feature "aggiungi ancora custom" — 3 tester su 3 l'avrebbero usata
+- **Breve termine**: valutare se aggiungere 20-30 "scene compound" di alto valore al dataset (es. "mare in tempesta", "bosco all'alba", "città deserta di notte", "deserto al tramonto", "corsa all'alba") come nuovo tipo di ancora `type: 'scene'`
+- **Medio termine**: il prompt di generazione AI può essere istruito a ricombinare ancore atomiche in scene — ma richiede prompt engineering dedicato
 
-**4. Bug copia su Android (21/4/2026 — fixato).**
-`navigator.clipboard.writeText()` non funzionava silenziosamente sul browser Android di Elena. Fix: strategia execCommand-first + user-select:all come fallback + feedback bottone "✓ Copiato!" al posto di alert. Da monitorare sui prossimi tester Android/iOS per confermare.
+**3. Match rate variabile (50-70%), correlato al riconoscimento soggettivo.**
+- Elena: 70% + "sì, molto"
+- Chiara: 50% + "sì, molto"
+- Mattia: 60% + "in parte"
+
+Interessante: il match rate in sé non predice il riconoscimento. Mattia ha un match rate intermedio (60%) ma si riconosce solo "in parte" — segnale che non è il numero delle ancore che contano, ma la **qualità semantica** del match.
+
+**4. Nuovo pattern: granularità insufficiente dentro alcuni cluster (emerso da Mattia).**
+Mattia ha il cluster **Creazione viva** come dominante MA rifiuta 4 delle sue ancore più caratteristiche (Scultura, Teatro, Poesia, Colori vividi) con motivazioni estetiche esplicite ("amo il reale, non l'artefatto"; "amo i chiaroscuri, non il saturo").
+
+Il cluster Creazione viva raggruppa stili espressivi **troppo eterogenei** — include arti figurative realistiche e stilizzate, arti performative, scrittura creativa, colori. Un utente può essere creativo ma avere una forte preferenza per un sotto-tipo di creazione e rifiutare le altre.
+
+**Ipotesi:** servirebbe una sotto-dimensione (realistico vs artefatto, minimale vs esuberante) che oggi non è catturata. Da approfondire se emerge in altri tester.
+
+**5. Il campo "perché" sui rifiuti è uno strumento potentissimo di analisi (confermato 2/3 tester hanno motivato).**
+- Chiara: avversione sensoriale personale (olfatto → muffa)
+- Mattia: preferenze estetiche dichiarate (reale vs artefatto, chiaroscuro vs saturo)
+
+Queste due classi di rifiuto sono **completamente diverse**:
+- **Personali non generalizzabili** → l'ancora è OK nel dataset, problema individuale
+- **Estetiche dichiarate** → potrebbero rivelare un gap nella tassonomia dei cluster
+
+Senza il campo "perché" avremmo solo dati quantitativi binari (rifiuta/non rifiuta); con, abbiamo i *livelli* di rifiuto.
+
+**6. Bug copia su Android Chrome (Elena, 21/4 — fixato).**
+`navigator.clipboard.writeText()` non funzionava silenziosamente. Fix: strategia execCommand-first + user-select:all come fallback + feedback bottone "✓ Copiato!" al posto di alert. Da monitorare sui prossimi tester Android/iOS.
+
+### Ancore candidate a review (dopo più tester)
+
+Queste ancore hanno ricevuto almeno 1 rifiuto con motivazione estetica/semantica (non solo avversione personale). Non sono ancora da rimuovere, ma **da tenere d'occhio**:
+
+| Ancora | Tester | Motivazione | Tipo |
+|---|---|---|---|
+| Odore di vecchi libri | Chiara | Ricorda muffa | personale (no action) |
+| Scultura | Mattia | Non emoziona | estetica (osservare) |
+| Teatro | Mattia | Artefatta | estetica (osservare) |
+| Poesia | Mattia | Artefatta | estetica (osservare) |
+| Colori vividi | Mattia | Preferenza chiaroscuro | estetica (osservare) |
+
+Se emergono pattern simili su 3+ tester diversi, considerare revisione del cluster Creazione viva.
