@@ -203,10 +203,9 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 - **Bottone continua:** Continua
 
-- **Counter (in basso):** `{rated} di {total} valutate`
-  _(Es. "7 di 20 valutati")_
+- **Counter (in basso):** `{rated} di {total} valutate · ne mancano {missing}` (quando incomplete) o `{rated} di {total} valutate` (quando complete)
 
-> Il bottone "Continua" è disabilitato finché non hai valutato almeno il 70% degli spunti (14 su 20).
+> **Tutte le valutazioni sono obbligatorie** (v1.2, 21/4/2026): il bottone "Continua" è disabilitato finché non sono state valutate tutte e 20 le immagini. Se salta quelle che non piacciono si perdono informazioni utili al dataset.
 
 ---
 
@@ -244,11 +243,14 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 - **Icona:** 🙏
 - **Titolo:** Grazie!
-- **Paragrafo:** I tuoi risultati sono pronti. Scegli come inviarli:
+- **Paragrafo:** Questi sono i risultati che stai per condividere. Nessun altro dato viene inviato oltre a quello che leggi qui sotto.
+- **Intestazione box:** Il messaggio che verrà copiato
+- **Box anteprima:** mostra il testo del messaggio finale (sempre visibile, non più dietro a "Dettagli espandibili")
 - **Bottone primario:** 📋 Copia e incolla su WhatsApp
 - **Bottone secondario:** 📧 Invia via email
-- **Dettagli espandibili:** Anteprima del messaggio
 - **Footer:** Puoi chiudere questa pagina.
+
+> **Scelta di trasparenza (v1.2, 21/4/2026):** il preview è sempre visibile prima della copia, così il tester vede chiaramente quali dati sta trasmettendo. Niente "alla cieca" — il riquadro è espanso di default e leggibile direttamente nella pagina.
 
 ---
 
@@ -402,4 +404,6 @@ _Le emozioni-output (Meraviglia, Serenità, Gratitudine, Vitalità, Passione, No
 
 ---
 
-**Versione contenuti:** v1.1 · creata 17/4/2026 · aggiornata 18/4/2026
+**Versione contenuti:** v1.2 · creata 17/4/2026 · aggiornata 21/4/2026
+
+**Atmosfera grafica:** "Soglia" — palette chiara del sistema DeepChant (carta calda #F5F0E4, inchiostro nero #1C1915, accento blu prussiano #3D4F7C). Applicata via CSS variables in `:root`.

@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#0A0A0F">
+<meta name="theme-color" content="#F5F0E4">
 <title>Test delle emozioni</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  /* Palette "Soglia" — atmosfera chiara del sistema DeepChant:
+     carta calda, inchiostro nero, blu prussiano come accento */
   :root {
-    --bg: #0A0A0F;
-    --surface: #14141A;
-    --surface-elevated: #1E1E26;
-    --text-primary: #E8E6E1;
-    --text-secondary: #A8A6A0;
-    --text-muted: #6B6968;
-    --gold: #C9A87C;
-    --gold-dim: rgba(201, 168, 124, 0.15);
-    --border: rgba(232, 230, 225, 0.12);
-    --green: #7FB481;
-    --gray: #6B6968;
-    --red: #C75050;
+    --bg: #F5F0E4;                            /* carta calda */
+    --surface: #ECE3D0;                        /* surface secondaria */
+    --surface-elevated: #FFFFFF;               /* card elevata */
+    --text-primary: #1C1915;                   /* inchiostro nero */
+    --text-secondary: #5A544A;                 /* secondario AA */
+    --text-muted: #8F867A;                     /* muted per label ≥14px */
+    --gold: #3D4F7C;                           /* blu prussiano (accent) */
+    --gold-dim: rgba(61, 79, 124, 0.12);       /* accent soft */
+    --border: rgba(28, 25, 21, 0.10);          /* hairline */
+    --green: #3F7A4A;                          /* success */
+    --gray: #8F867A;                           /* gray neutrale */
+    --red: #B5432A;                            /* error / negative rating */
   }
   html, body {
     background: var(--bg);
@@ -443,17 +445,15 @@
 <div class="screen" id="screen-done">
   <div class="success-icon">🙏</div>
   <h1 style="text-align: center;">Grazie!</h1>
-  <p style="text-align: center;">I tuoi risultati sono pronti. Scegli come inviarli:</p>
+  <p style="text-align: center;">Questi sono i risultati che stai per condividere. Nessun altro dato viene inviato oltre a quello che leggi qui sotto.</p>
 
-  <button class="btn" onclick="copyResults()">📋 Copia e incolla su WhatsApp</button>
-  <button class="btn btn-secondary" onclick="emailResults()">📧 Invia via email</button>
+  <h3 style="margin-top: 24px;">Il messaggio che verrà copiato</h3>
+  <div class="code-block" id="results-json" style="font-family: inherit; white-space: pre-wrap; max-height: none;"></div>
 
   <div class="divider"></div>
 
-  <details style="margin-top: 16px;">
-    <summary style="color: var(--text-muted); font-size: 13px; cursor: pointer;">Anteprima del messaggio</summary>
-    <div class="code-block" id="results-json" style="margin-top: 12px; font-family: inherit; white-space: pre-wrap;"></div>
-  </details>
+  <button class="btn" onclick="copyResults()">📋 Copia e incolla su WhatsApp</button>
+  <button class="btn btn-secondary" onclick="emailResults()">📧 Invia via email</button>
 
   <p class="meta" style="text-align: center; margin-top: 32px;">Puoi chiudere questa pagina.</p>
 </div>
@@ -924,8 +924,16 @@ function renderAnchors() {
 function updateAnchorsCounter() {
   const rated = Object.keys(anchorRatings).length;
   const total = proposedAnchors.length;
-  document.getElementById('anchors-counter').textContent = `${rated} di ${total} valutate`;
-  document.getElementById('anchors-next-btn').disabled = rated < Math.ceil(total * 0.7);
+  const counterEl = document.getElementById('anchors-counter');
+  const btnEl = document.getElementById('anchors-next-btn');
+  const missing = total - rated;
+  if (missing === 0) {
+    counterEl.textContent = `${rated} di ${total} valutate`;
+  } else {
+    counterEl.textContent = `${rated} di ${total} valutate · ne mancano ${missing}`;
+  }
+  // Tutte le immagini sono obbligatorie: niente skip, dati completi.
+  btnEl.disabled = rated < total;
 }
 
 function showFeedback() {
