@@ -891,7 +891,7 @@ function renderAnchors() {
           <button class="rating-btn non_mia ${current === 'non_mia' ? 'active' : ''}" data-rating="non_mia">❌</button>
         </div>
       </div>
-      <textarea class="anchor-reason ${current === 'non_mia' ? 'visible' : ''}" placeholder="Dicci perché (opzionale) — esperienza personale, fobia, ricordi sgradevoli, ecc." rows="2">${reasonValue}</textarea>
+      <textarea class="anchor-reason ${current === 'non_mia' ? 'visible' : ''}" placeholder="Dicci perché (opzionale): esperienza personale, fobia, ricordi sgradevoli, ecc." rows="2">${reasonValue}</textarea>
     `;
     const reasonEl = el.querySelector('.anchor-reason');
     el.querySelectorAll('.rating-btn').forEach(btn => {
