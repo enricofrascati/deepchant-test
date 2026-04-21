@@ -155,7 +155,7 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 ### acquatica
 - emoji: 🌊
-- **nome:** Acquatica profonda
+- **nome:** Acqua profonda
 - **descrizione:** Acqua in tutte le forme, immersione, quiete fluida.
 
 ### spirituale
