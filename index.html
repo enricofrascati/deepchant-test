@@ -379,7 +379,7 @@
   <div id="clusters-container"></div>
 
   <div style="background: var(--gold-dim); border-left: 3px solid var(--gold); border-radius: 6px; padding: 14px 16px; margin: 20px 0; font-size: 14px; line-height: 1.6; color: var(--text-primary);">
-    <strong style="color: var(--gold);">Nota</strong> — queste aree <em>non ti definiscono</em>, sono un vocabolario di partenza. Puoi avere polarità opposte (solitudine e folla, rigore e sensualità, silenzio e caos): le tue contraddizioni fanno parte del profilo, non lo rompono.
+    <strong style="color: var(--gold);">Nota:</strong> queste aree <em>non ti definiscono</em>, sono un vocabolario di partenza. Puoi avere polarità opposte (solitudine e folla, rigore e sensualità, silenzio e caos): le tue contraddizioni fanno parte del profilo, non lo rompono.
   </div>
 
   <div class="divider"></div>
@@ -1070,7 +1070,7 @@ function formatPayloadForWhatsApp(p) {
     .join(', ');
 
   const lines = [
-    '*Test sulle emozioni — risultati*',
+    '*Test sulle emozioni: risultati*',
     '',
     `Aree emerse: ${areaNames}`,
     '',
@@ -1085,7 +1085,7 @@ function formatPayloadForWhatsApp(p) {
     lines.push('');
     lines.push('Spunti rifiutati:');
     rejected.forEach(r => {
-      if (r.reason) lines.push(`• ${r.anchor} — ${r.reason}`);
+      if (r.reason) lines.push(`• ${r.anchor}: ${r.reason}`);
       else lines.push(`• ${r.anchor}`);
     });
   }
@@ -1108,7 +1108,7 @@ function formatPayloadForWhatsApp(p) {
 
 function emailResults() {
   const p = window._lastPayload;
-  const subject = encodeURIComponent('Esperimento — risultati test psicologico');
+  const subject = encodeURIComponent('Esperimento: risultati test psicologico');
   const body = encodeURIComponent(formatPayloadForWhatsApp(p));
   window.location.href = `mailto:efrascati@gmail.com?subject=${subject}&body=${body}`;
 }

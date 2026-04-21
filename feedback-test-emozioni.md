@@ -9,7 +9,32 @@ Ogni voce contiene il messaggio copiato dal tester + eventuali note qualitative 
 
 <!-- Aggiungere nuovi tester sopra, più recenti in alto -->
 
-### Mattia — 45-60, uomo (21/4/2026)
+### Stefania, 45-60, donna (21/4/2026)
+
+**Aree emerse:** 🌊 Acqua profonda · 💃 Corpo vivo · 🔥 Fuoco sociale
+
+**Spunti valutati (20):**
+- 12 mi rappresentano
+- 5 indifferenti
+- 3 non sono miei
+
+**Spunti rifiutati (senza motivazione):**
+- Pioggia
+- Nebbia
+- Odore della pioggia
+
+**Mi riconosco in generale:** sì, molto
+
+**Manca:** niente segnalato
+
+#### Note qualitative
+
+- **Tripletta "acquatica" rifiutata in blocco** (Pioggia, Nebbia, Odore della pioggia): Stefania ha Acqua profonda come cluster dominante ma rifiuta le 3 ancore atmosferiche/meteo del cluster. Legge il "liquido" come mare/corpo/immersione, non come meteo malinconico. Conferma l'intuizione post-Mattia: i cluster hanno **sotto-ramificazioni** che l'algoritmo non distingue (qui: acqua-elemento vs acqua-meteo).
+- **Primo caso di rifiuto coerente per sotto-categoria senza motivazione scritta**: la categoria meteo-grigio ("pioggia", "nebbia") attiva un rifiuto nettissimo (probabile associazione con umore basso o stagione pesante). Ancore candidate a review: valutare se spostare Pioggia/Nebbia/Odore pioggia in un sotto-cluster separato "acqua-atmosferica" opzionale, lasciando in dominante le ancore marine/corporee.
+- **Riconoscimento "sì molto"** nonostante i 3 rifiuti: il 60% di match sulle ancore dominanti risulta comunque appagante quando il cluster emotivo di appartenenza è riconosciuto. Segnale che il problema di Mattia (riconoscimento "in parte") non è il tasso di rifiuto in sé, ma il mismatch sulle ancore centrali del cluster.
+- **Nessun "manca"**: coerente con il match forte sul vocabolario proposto.
+
+### Mattia, 45-60, uomo (21/4/2026)
 
 **Aree emerse:** 🎨 Creazione viva · 🏔 Anima selvatica · 🔥 Fuoco sociale
 
