@@ -123,6 +123,9 @@ Modifica qui, poi Claude reintegra nell'HTML.
 
 - **Paragrafo intro:** Basandomi sulle tue risposte, gli ambiti in cui vivi maggiormente le tue emozioni sono: 
 
+- **Box "Nota" (v1.3, 21/4/2026):** Queste aree non ti definiscono, sono un vocabolario di partenza. Puoi avere polarità opposte (solitudine e folla, rigore e sensualità, silenzio e caos): le tue contraddizioni fanno parte del profilo, non lo rompono.
+  - *Scopo:* disinnescare preventivamente la "rivendicazione identitaria" che emerge in utenti analitici/auto-consapevoli dopo il risultato (primo caso documentato: Mattia, 21/4). Senza questo messaggio, alcuni tester potrebbero nascondere informazioni utili temendo di essere "incasellati". Il box è stilisticamente distinto dal testo normale (background gold-dim, bordo accent).
+
 - **Paragrafo post-aree:** Sulla prossima pagina trovi le immagini evocative scelte per te. Per ognuno vedrai tre bottoni per indicare se quell'immagine richiama in te emozioni positive, se ti è indifferente o se ti risveglia invece emozioni negative. Lo scopo è solo quello di capire se il test è efficace per individuare le tue immagini emotive o se va invece migliorato.
 
 - **Bottone procedi:** Procedi
@@ -404,6 +407,6 @@ _Le emozioni-output (Meraviglia, Serenità, Gratitudine, Vitalità, Passione, No
 
 ---
 
-**Versione contenuti:** v1.2 · creata 17/4/2026 · aggiornata 21/4/2026
+**Versione contenuti:** v1.3 · creata 17/4/2026 · aggiornata 21/4/2026 (messaggio anti-incasellamento dopo risultato)
 
 **Atmosfera grafica:** "Soglia" — palette chiara del sistema DeepChant (carta calda #F5F0E4, inchiostro nero #1C1915, accento blu prussiano #3D4F7C). Applicata via CSS variables in `:root`.
